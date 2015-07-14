@@ -36,8 +36,6 @@ function selectCompetenceSimple(compId){
     else 
         style.appendChild(document.createTextNode(css));
     document.getElementById('competences').appendChild(style);
-
-    //console.log('comp: '+ compName+"; value: "+compValue);
 };
 
 function playerChoice(choice){
@@ -47,16 +45,16 @@ function playerChoice(choice){
         document.getElementById('tableStats').style.display = "block";
 };
 
-function calculCompetences(){
+function calculCompetences(stats){
 
-    var ForceValue = playerStats['Force'];
-    var DexteriteValue = playerStats['Dexterite'];
-    var ConstitutionValue = playerStats['Constitution'];
-    var CharismeValue = playerStats['Charisme'];
-    var PerceptionValue = playerStats['Perception'];
-    var EducationValue = playerStats['Education'];
-    var SagesseValue = playerStats['Sagesse'];
-    var IntelligenceValue = playerStats['Intelligence'];
+    var ForceValue = stats['Force'];
+    var DexteriteValue = stats['Dexterite'];
+    var ConstitutionValue = stats['Constitution'];
+    var CharismeValue = stats['Charisme'];
+    var PerceptionValue = stats['Perception'];
+    var EducationValue = stats['Education'];
+    var SagesseValue = stats['Sagesse'];
+    var IntelligenceValue = stats['Intelligence'];
 
     $('#Force :nth-child(2)').text(ForceValue);
     $('#Dexterite :nth-child(2)').text(DexteriteValue);
@@ -126,18 +124,24 @@ function enterChannel(){
         console.log(data.userList);
         $('#userList').empty();
         for(var i=0;i < data.userList.length;i++){                          
-            $('#userList').append('<li>'+data.userList[i]+'</li>');
+            $('#userList').append('<li>'+data.userList[i]+'</li>');   
         }
-        
+        // lorsque l'on clique sur un des pseudos, on récupère les stats et on les mets à jour
+        $('#userList').find('li').each(function(){
+            $(this).click(function(){
+                socketio.emit("getPlayerStats", { pseudo: $(this).text()});
+            })
+        });
         
     });
 
     socketio.on("user image", function(data) {
-       //document.getElementById('messages').append($('<li>').text(data.message));
-        console.log(data);
         $('#imageSend').empty();
         $('#imageSend').append($('<p>').append('<img src="' + data.fileData + '"/>'));
-
+    });
+    
+    socketio.on("getPlayerStats", function(data) {
+        calculCompetences(data.stats);
     });
 
     playerStats['Force'] = parseInt($('#ForceInit :nth-child(2)').find('input').val());
@@ -151,7 +155,7 @@ function enterChannel(){
 
     userName = $('#login').val();
     room = $('#salon').val();
-    calculCompetences();
+    calculCompetences(playerStats);
 
     document.getElementById('pseudo').innerText = document.getElementById('login').value;
     document.getElementById('accueil').style.display = "none";

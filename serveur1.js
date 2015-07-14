@@ -51,6 +51,20 @@ io.sockets.on('connection', function(socket) {
         io.sockets.in(socket.room).emit('user image', { fileData: data });
         
     });
+    // Appelé lors d'un click sur un utilisateur pour voir ses stats
+    socket.on('getPlayerStats', function(data) {
+        var stats = [];
+        var clients_in_the_room = io.sockets.adapter.rooms[socket.room]; 
+        for (var clientId in clients_in_the_room ) {
+          var client_socket = io.sockets.connected[clientId];//Do whatever you want with this
+          if(client_socket.userName == data.pseudo){
+              stats = client_socket.stats;
+              console.log(stats);
+          }
+        }
+
+        socket.emit('getPlayerStats', { stats: stats });
+    });
 });
 
 // Traitement du jet de dés, calcul du message à émettre aux tchats
@@ -74,4 +88,23 @@ function roll(compValue, comp, bonusMalus, pseudo){
     else if(bonusMalus < 0)
         msg += " <i>(malus "+bonusMalus+")</i>";
     return msg;
+}
+
+function findClientsSocket(roomId, namespace) {
+    var res = []
+    , ns = io.of(namespace ||"/");    // the default namespace is "/"
+
+    if (ns) {
+        for (var id in ns.connected) {
+            if(roomId) {
+                var index = ns.connected[id].rooms.indexOf(roomId) ;
+                if(index !== -1) {
+                    res.push(ns.connected[id]);
+                }
+            } else {
+                res.push(ns.connected[id]);
+            }
+        }
+    }
+    return res;
 }
