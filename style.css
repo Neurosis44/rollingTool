@@ -1,0 +1,154 @@
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { color:white;font: 13px Helvetica, Arial; background-image: url("http://img0.mxstatic.com/wallpapers/c4511e0f37d37c279f8bba7f518ed629_large.jpeg");background-size: cover;}
+#messages { list-style-type: none; margin: 0; padding: 0;}
+#messages li { padding: 5px 10px; }
+#messages li:nth-child(odd) { background: #eee; }
+#content {width:1000px;margin: 0 auto;text-align: left;display:none;}
+#tchat {float:left; width:400px; height:400px;background:#eee;color:black;overflow:auto}
+#competences {float:left; width:360px;}
+#competences tr:hover { background-color: yellow; }
+table {background-color: rgba(0, 0, 0, 0.4);}
+tr td {text-align: left;width:30px;}
+tr td:first-child{width:110px;}
+td input {width:40px;}
+#accueil {
+    width: 300px;
+    height: 400px;
+    text-align: center;
+    position: absolute;
+    top:0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    font-size:18px;
+    margin: auto;
+}
+#stats input {
+    width:40px;
+}
+
+#stats table{margin-top:10px;}
+#competences table {font-size:14px; padding:5px; margin-left:10px;}
+.competencesTable {position:relative; width:43%;}
+.accueilBox , #competences table{font-size:18px;
+    margin: auto;
+    margin-top:10px;
+    padding:10px;
+    background-color: #7a5435;
+    border: 4px solid #535e61;
+    -moz-border-radius: 10px;
+    -webkit-border-radius: 10px;
+    border-radius: 10px;
+    /*IE 7 AND 8 DO NOT SUPPORT BORDER RADIUS*/
+    -moz-box-shadow: 0px 0px 8px #000000;
+    -webkit-box-shadow: 0px 0px 8px #000000;
+    box-shadow: 0px 0px 8px #000000;
+    /*IE 7 AND 8 DO NOT SUPPORT BLUR PROPERTY OF SHADOWS*/}
+
+#users {
+    width:120px; 
+    height:100px; 
+    margin: auto;
+    padding:10px;
+    background-color: #7a5435;
+    border: 4px solid #535e61;
+    -moz-border-radius: 10px;
+    -webkit-border-radius: 10px;
+    border-radius: 10px;}
+
+#accueil button {
+  background: #db091a;
+  background-image: -webkit-linear-gradient(top, #db091a, #940d14);
+  background-image: -moz-linear-gradient(top, #db091a, #940d14);
+  background-image: -ms-linear-gradient(top, #db091a, #940d14);
+  background-image: -o-linear-gradient(top, #db091a, #940d14);
+  background-image: linear-gradient(to bottom, #db091a, #940d14);
+  -webkit-border-radius: 60;
+  -moz-border-radius: 60;
+  border-radius: 60px;
+  text-shadow: 0px 1px 3px #544854;
+  font-family: Georgia;
+  color: #ffffff;
+  font-size: 18px;
+  padding: 8px 26px 10px 29px;
+  text-decoration: none;
+  border:solid 1px black;
+}
+
+#accueil button:hover {
+  background: #fc1f31;
+  background-image: -webkit-linear-gradient(top, #fc1f31, #f51326);
+  background-image: -moz-linear-gradient(top, #fc1f31, #f51326);
+  background-image: -ms-linear-gradient(top, #fc1f31, #f51326);
+  background-image: -o-linear-gradient(top, #fc1f31, #f51326);
+  background-image: linear-gradient(to bottom, #fc1f31, #f51326);
+  text-decoration: none;
+}
+#enter, #login { margin-top:10px;}
+
+#bonusBox {
+    margin: auto;
+    margin-top:10px;
+    width:100px;
+    background-color: #7a5435;
+    border: 4px solid #535e61;
+    -moz-border-radius: 10px;
+    -webkit-border-radius: 10px;
+    border-radius: 10px;
+    /*IE 7 AND 8 DO NOT SUPPORT BORDER RADIUS*/
+    -moz-box-shadow: 0px 0px 8px #000000;
+    -webkit-box-shadow: 0px 0px 8px #000000;
+    box-shadow: 0px 0px 8px #000000;
+}
+#bonusBox input {
+    width:40px;
+}
+#bonusBox button {
+   width:20px;
+   height:20px;
+    padding:0px;
+   border: 2px solid #0a3c59;
+   background: #3e779d;
+   background: -webkit-gradient(linear, left top, left bottom, from(#65a9d7), to(#3e779d));
+   background: -webkit-linear-gradient(top, #65a9d7, #3e779d);
+   background: -moz-linear-gradient(top, #65a9d7, #3e779d);
+   background: -ms-linear-gradient(top, #65a9d7, #3e779d);
+   background: -o-linear-gradient(top, #65a9d7, #3e779d);
+   background-image: -ms-linear-gradient(top, #65a9d7 0%, #3e779d 100%);
+   -webkit-border-radius: 6px;
+   -moz-border-radius: 6px;
+   border-radius: 6px;
+   -webkit-box-shadow: rgba(255,255,255,0.4) 0 1px 0, inset rgba(255,255,255,0.4) 0 1px 0;
+   -moz-box-shadow: rgba(255,255,255,0.4) 0 1px 0, inset rgba(255,255,255,0.4) 0 1px 0;
+   box-shadow: rgba(255,255,255,0.4) 0 1px 0, inset rgba(255,255,255,0.4) 0 1px 0;
+   text-shadow: #7ea4bd 0 1px 0;
+   color: #000000;
+   font-size: 21px;
+   font-family: helvetica, serif;
+   text-decoration: none;
+   vertical-align: middle;
+   }
+#bonusBox button:hover {
+   border: 2px solid #ffffff;
+   text-shadow: #1e4158 0 1px 0;
+   background: #3e779d;
+   background: -webkit-gradient(linear, left top, left bottom, from(#65a9d7), to(#3e779d));
+   background: -webkit-linear-gradient(top, #65a9d7, #3e779d);
+   background: -moz-linear-gradient(top, #65a9d7, #3e779d);
+   background: -ms-linear-gradient(top, #65a9d7, #3e779d);
+   background: -o-linear-gradient(top, #65a9d7, #3e779d);
+   background-image: -ms-linear-gradient(top, #65a9d7 0%, #3e779d 100%);
+   color: #fff;
+   }
+ #bonusBox button:active {
+   text-shadow: #1e4158 0 1px 0;
+   border: 2px solid #0a3c59;
+   background: #65a9d7;
+   background: -webkit-gradient(linear, left top, left bottom, from(#3e779d), to(#3e779d));
+   background: -webkit-linear-gradient(top, #3e779d, #65a9d7);
+   background: -moz-linear-gradient(top, #3e779d, #65a9d7);
+   background: -ms-linear-gradient(top, #3e779d, #65a9d7);
+   background: -o-linear-gradient(top, #3e779d, #65a9d7);
+   background-image: -ms-linear-gradient(top, #3e779d 0%, #65a9d7 100%);
+   color: #fff;
+   }
