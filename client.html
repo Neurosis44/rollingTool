@@ -8,6 +8,8 @@
     <script src="http://cdn.socket.io/socket.io-1.3.5.js"></script>
     <script src='http://code.jquery.com/jquery-1.6.1.min.js'></script>
     <script src="script.js" type="text/javascript"></script>
+    <script src="phaser.js" type="text/javascript"></script>
+    <script src="sceneManager.js" type="text/javascript"></script>
     <link href="style.css" rel="stylesheet"/>
 </head>
 
@@ -83,11 +85,6 @@
             <button onclick="calculBonusMalus('plus')">+</button>
             <button id="rollButton" style="width:80px; height:40px;" onclick="emitRoll()">Roll</button>
         </div>
-
-        <!--<div>
-            Send Image<input type="file" id="imagefile" accept="image/*">
-            <div id="imageSend"></div>
-        </div>-->
         
         <div id="tchat">            
             <ul id="messages"></ul>
@@ -209,87 +206,17 @@
                 </table>
             </div>
 
-            <div class="competencesTable" style="float:right;">
-                <table >
-                    <caption>Compétences (au choix : 5)</caption>
-
-                    <tbody>
-                        <tr id="xx" onclick="selectCompetenceSimple('ArtDeLaMagie');">
-                            <td>lkjhlkjh</td>
-                            <td></td>
-                        </tr>
-                        <tr id="dd" onclick="selectCompetenceSimple('Connaissance');">
-                            <td>lkjhlkjh</td>
-                            <td></td>
-                        </tr>
-                        <tr id="ff" onclick="selectCompetenceSimple('Contrefacon');">
-                            <td>Conkjhtrefaçon</td>
-                            <td></td>
-                        </tr>
-                        <tr id="gg" onclick="selectCompetenceSimple('Crochetage');">
-                            <td>hh</td>
-                            <td></td>
-                        </tr>
-                        <tr id="hh" onclick="selectCompetenceSimple('Decryptage');">
-                            <td>khjkh</td>
-                            <td></td>
-                        </tr>
-                        <tr id="uu" onclick="selectCompetenceSimple('Desamorcage');">
-                            <td>iuyiuy</td>
-                            <td></td>
-                        </tr>
-                        <tr id="ii" onclick="selectCompetenceSimple('Dressage');">
-                            <td>jhgjhg</td>
-                            <td></td>
-                        </tr>
-                        <tr id="oo" onclick="selectCompetenceSimple('Equitation');">
-                            <td>jhghg</td>
-                            <td></td>
-                        </tr>
-                        <tr id="pp" onclick="selectCompetenceSimple('Escamotage');">
-                            <td>Escamotage</td>
-                            <td></td>
-                        </tr>
-                        <tr id="mm" onclick="selectCompetenceSimple('MaitriseDesCordes');">
-                            <td>Maitrise des cordes</td>
-                            <td></td>
-                        </tr>
-                        <tr id="nn" onclick="selectCompetenceSimple('Natation');">
-                            <td>Natation</td>
-                            <td></td>
-                        </tr>
-                        <tr id="PremierSecours" onclick="selectCompetenceSimple('PremierSecours');">
-                            <td>Premiers secours</td>
-                            <td></td>
-                        </tr>
-                        <tr id="Profession" onclick="selectCompetenceSimple('Profession');">
-                            <td>Profession</td>
-                            <td></td>
-                        </tr>
-                        <tr id="Representation" onclick="selectCompetenceSimple('Representation');">
-                            <td>Représentation</td>
-                            <td></td>
-                        </tr>
-                        <tr id="UtilisationObjetsMagiques" onclick="selectCompetenceSimple('UtilisationObjetsMagiques');">
-                            <td>Utilisation Obj. Mag.</td>
-                            <td></td>
-                        </tr>
-                        <tr id="jhgjhg" onclick="selectCompetenceSimple('Profession');">
-                            <td>Profession</td>
-                            <td></td>
-                        </tr>
-                        <tr id="jhggjhg" onclick="selectCompetenceSimple('Representation');">
-                            <td>Regprésentation</td>
-                            <td></td>
-                        </tr>
-                        <tr id="jhgjhgggg" onclick="selectCompetenceSimple('UtilisationObjetsMagiques');">
-                            <td>Utilisation Obj. Mag.</td>
-                            <td></td>
-                        </tr>
-
-                    </tbody>
-                </table>
+        </div>
+        <div style="display:inline-block;">
+            <div>
+                Choisir une scène<input type="file" id="imagefile" accept="image/*">
+                <div id="imageSend"></div>
             </div>
+            <div id="gameForm">
+                <input type="color" id="html5colorpicker" value="#ff0000">
+                <button id="addPlayer">Afficher joueur</button>
+            </div>
+            <div id="gameScene"></div>
         </div>
     </div>
 </body>

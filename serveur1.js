@@ -52,19 +52,21 @@ io.sockets.on('connection', function(socket) {
         
     });
     // Appelé lors d'un click sur un utilisateur pour voir ses stats
-    socket.on('getPlayerStats', function(data) {
-        var stats = [];
-        var clients_in_the_room = io.sockets.adapter.rooms[socket.room]; 
-        for (var clientId in clients_in_the_room ) {
-          var client_socket = io.sockets.connected[clientId];//Do whatever you want with this
-          if(client_socket.userName == data.pseudo){
-              stats = client_socket.stats;
-              console.log(stats);
-          }
-        }
-
-        socket.emit('getPlayerStats', { stats: stats });
+    socket.on('addPlayerOnScene', function(data) {
+        io.sockets.in(socket.room).emit("addPlayerOnScene", { pionId: socket.userName, color : data.color });
     });
+    
+    // Appelé lors d'un remove du joueur de la map
+    socket.on('removePlayerOnScene', function(data) {
+        io.sockets.in(socket.room).emit("removePlayerOnScene", { pionId: socket.userName });
+    });
+    
+     // Appelé lorsdu mouvement d'un pion sur le plateau
+    socket.on('updatePlayerPosition', function(data) {
+        //io.sockets.in(socket.room).emit("updatePlayerPosition", { pionId : data.pionId, x: data.x, y: data.y });
+        socket.to(socket.room).emit("updatePlayerPosition", { pionId : data.pionId, x: data.x, y: data.y });
+    });
+    
 });
 
 // Traitement du jet de dés, calcul du message à émettre aux tchats

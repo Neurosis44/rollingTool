@@ -2,6 +2,8 @@ var selectedCompetence = "";
 var userName = "";
 var playerStats = {} ;
 var socketio = null;
+var sceneData = null;
+var gameScene = null;
 
 function emitRoll(){
     var comp = selectedCompetence;
@@ -137,11 +139,32 @@ function enterChannel(){
 
     socketio.on("user image", function(data) {
         $('#imageSend').empty();
-        $('#imageSend').append($('<p>').append('<img src="' + data.fileData + '"/>'));
+        sceneData = data.fileData;
+        if(gameScene) gameScene.destroy();
+        gameScene = new Phaser.Game(1024, 500, Phaser.AUTO, 'gameScene');
+        gameScene.state.add('sceneManager', sceneManager, true);
+        //$('#imageSend').append($('<p>').append('<img src="' + data.fileData + '"/>'));
     });
     
     socketio.on("getPlayerStats", function(data) {
         calculCompetences(data.stats);
+    });
+    
+    // Lors de l'ajout d'un joueur sur la scène
+    socketio.on("addPlayerOnScene", function(data) {
+        // on envoie la requete d'ajout à la scène
+        addPlayerOnScene(data.pionId, data.color);
+    });
+    
+    // Lors du mouvement d'un des pions
+    socketio.on("updatePlayerPosition", function(data) {
+        updatePlayerPosition(data.pionId, data.x, data.y);
+    });
+    
+    
+    // Lors de la suppression d'un pion sur la map
+    socketio.on("removePlayerOnScene", function(data) {
+        removePlayerOnScene(data.pionId);
     });
 
     playerStats['Force'] = parseInt($('#ForceInit :nth-child(2)').find('input').val());
@@ -165,8 +188,10 @@ function enterChannel(){
 
 }
 
+// Event handler pour les inputs du plateau
 $("document").ready(function(){
 
+    // Lors du choix d'une image pour la scene
     $('#imagefile').bind('change', function(e){
         var data = e.originalEvent.target.files[0];
         var reader = new FileReader();
@@ -175,5 +200,18 @@ $("document").ready(function(){
             socketio.emit('user image', evt.target.result);
         };
         reader.readAsDataURL(data);
+    });
+    
+    // Lors d'un click sur le bouton "Ajouter Joueur"
+    $('#addPlayer').bind('click',function(e){
+        console.log('color client: '+ $('#html5colorpicker').val());
+        if($('#addPlayer').text() == 'Afficher joueur'){
+            $('#addPlayer').text('Cacher Joueur');
+            socketio.emit('addPlayerOnScene', {color: $('#html5colorpicker').val()});
+        } else {
+            $('#addPlayer').text('Afficher joueur');
+            socketio.emit('removePlayerOnScene');
+        }
+        
     });
 });
