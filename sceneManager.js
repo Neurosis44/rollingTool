@@ -14,12 +14,16 @@ sceneManager.prototype.create = function() {
     //Position image fond accueil
     var imageFond = gameScene.cache.getImage('fond');
     
-    var x = Math.round((gameScene.width / 2) - (imageFond.width / 2));
-    var y = Math.round((gameScene.height / 2) - (imageFond.height / 2));
+    //var x = Math.round((gameScene.width / 2) - (imageFond.width / 2));
+    //var y = Math.round((gameScene.height / 2) - (imageFond.height / 2));
     
     gameScene.playersGroup = gameScene.add.group();
     
-    var fond = gameScene.add.sprite(x, y, 'fond');
+    var fond = gameScene.add.sprite(0, 0, 'fond');
+    
+    // Gestion de la camera
+    gameScene.world.setBounds(0, 0, imageFond.width, imageFond.height);
+    cursors = gameScene.input.keyboard.createCursorKeys();
     
     gameScene.timerPosition = null;
 
@@ -28,6 +32,24 @@ sceneManager.prototype.create = function() {
 sceneManager.prototype.update = function() {
     //This method is called every frame.
     gameScene.playersGroup.callAll('update');
+    
+    if (cursors.up.isDown)
+    {
+        gameScene.camera.y -= 5;
+    }
+    else if (cursors.down.isDown)
+    {
+        gameScene.camera.y += 5;
+    }
+
+    if (cursors.left.isDown)
+    {
+        gameScene.camera.x -= 5;
+    }
+    else if (cursors.right.isDown)
+    {
+        gameScene.camera.x += 5;
+    }
 }
 
 sceneManager.prototype.render = function() {
@@ -49,7 +71,7 @@ function addPlayerOnScene(playerName, color){
     graphics.endFill();
     graphics.visible = false;
     
-    var sprite = gameScene.add.sprite(20, 20, graphics.generateTexture());
+    var sprite = gameScene.add.sprite(gameScene.camera.x+(SCENE_WIDTH/2), gameScene.camera.y+(SCENE_HEIGHT/2), graphics.generateTexture());
     sprite.inputEnabled = true;
     sprite.input.enableDrag(true);
     

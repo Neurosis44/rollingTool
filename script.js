@@ -5,6 +5,9 @@ var socketio = null;
 var sceneData = null;
 var gameScene = null;
 
+var SCENE_WIDTH = 1000;
+var SCENE_HEIGHT = 500;
+
 function emitRoll(){
     var comp = selectedCompetence;
 
