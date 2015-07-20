@@ -1,5 +1,8 @@
 var sceneManager = function(game) {};
 
+var clickRate = 300;
+var nextClick = 0;
+
 sceneManager.prototype.preload = function() {
     //Here you can preload images, audio, spritesheets and so on.
     /*var data = new Image();
@@ -32,7 +35,12 @@ sceneManager.prototype.create = function() {
 sceneManager.prototype.update = function() {
     //This method is called every frame.
     gameScene.playersGroup.callAll('update');
-    
+    gameScene.playersGroup.forEach(function(item) {
+        item.text.x = Math.floor(item.x + item.width/2 - item.text.width / 2);
+        item.text.y = item.y + item.height + 3;
+    }, this);
+
+    // Deplacement de la camera
     if (cursors.up.isDown)
     {
         gameScene.camera.y -= 5;
@@ -50,6 +58,15 @@ sceneManager.prototype.update = function() {
     {
         gameScene.camera.x += 5;
     }
+    
+    // Gestion des clicks de la souris
+    if (gameScene.input.activePointer.isDown)
+    {
+        if($('input[name=selectForm]:checked').val() == "addPNJ"){
+            addPNJEvent();
+        }
+    }
+    
 }
 
 sceneManager.prototype.render = function() {
@@ -62,16 +79,30 @@ sceneManager.prototype.playCallback = function(btn) {
 }
 
 // Ajoute un pion a la scène
-function addPlayerOnScene(playerName, color){
+function addPlayerOnScene(playerName, color, x, y){
     var graphics = gameScene.add.graphics(20, 20);
-    color.replace('#','0x');
-    console.log("teeeees:"+color.replace('#','0x'));
-    graphics.beginFill(color.replace('#','0x'));
+    /*graphics.beginFill(color.replace('#','0x'));
     graphics.drawCircle(470, 20, 20);
+    graphics.beginFill('0x000000');
+    graphics.drawCircle(470, 20, 20);
+    graphics.endFill();
+    graphics.visible = false;*/
+    
+    // and finally add the third 1px wide unfilled blue circle with a radius of 150
+    graphics.drawCircle(0, 0, 20);
+    graphics.beginFill(color.replace('#','0x'));
+    
+    // add first 1px wide unfilled red circle with a radius of 50 at the center (0, 0) of the graphics object
+    graphics.lineStyle(4, '0x000000');
+    graphics.drawCircle(0, 0, 20);
     graphics.endFill();
     graphics.visible = false;
     
-    var sprite = gameScene.add.sprite(gameScene.camera.x+(SCENE_WIDTH/2), gameScene.camera.y+(SCENE_HEIGHT/2), graphics.generateTexture());
+    if(x && y){
+        var sprite = gameScene.add.sprite(gameScene.camera.x + x, gameScene.camera.y + y, graphics.generateTexture());
+    } else {
+        var sprite = gameScene.add.sprite(gameScene.camera.x+(SCENE_WIDTH/2), gameScene.camera.y+(SCENE_HEIGHT/2), graphics.generateTexture());
+    }
     sprite.inputEnabled = true;
     sprite.input.enableDrag(true);
     
@@ -79,7 +110,17 @@ function addPlayerOnScene(playerName, color){
     sprite.events.onDragStop.add(onDragStop, this);
     sprite.playerName = playerName;
     
-    console.log("joueur ajouté: "+playerName);
+    // permet de supprimer le pion lors d'un click
+    sprite.events.onInputDown.add(function(sprite){
+        if($('input[name=selectForm]:checked').val() == "deletePNJ"){
+            socketio.emit('removePlayerOnScene', { pionId : playerName});
+        }
+    }, this);
+    
+    // Ajout du text sous le pion
+    var style = { font: "15px Arial", fill: color,fontWeight : 'bold', align: "center" };
+    sprite.text = gameScene.add.text(0, 0, sprite.playerName, style);
+    
     gameScene.playersGroup.add(sprite);
     gameScene.world.bringToTop(gameScene.playersGroup);
 }
@@ -121,8 +162,22 @@ function removePlayerOnScene(pionId){
     console.log('suppression du pion : '+pionId);
     gameScene.playersGroup.forEach(function(item) {
         if(item.playerName == pionId){
+            gameScene.world.remove(item.text);
             gameScene.playersGroup.remove(item);
         }
         
     });
+}
+
+// Appelé lors de l'ajout d'un PNJ, on bride le ratio de click pour ne pas faire popper trop de PNJs
+function addPNJEvent(){
+    if (gameScene.time.now > nextClick)
+    {
+        nextClick = gameScene.time.now + clickRate;
+
+        var x = gameScene.input.mousePointer.x;
+        var y = gameScene.input.mousePointer.y;
+        
+        socketio.emit('addPNJOnScene', {color: '#000000', pnjName : $('#pnjNameInput').val(), x : x, y : y});
+    }
 }

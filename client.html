@@ -73,152 +73,164 @@
     </div>
     
     <div id="content">
-        <p id="pseudo"></p>
         
-        <div id="users">            
-            <ul id="userList"></ul>
-        </div>
         
-        <div id="bonusBox">
-            <button onclick="calculBonusMalus('moins')">-</button>
-            <input id="bonusMalus" type="numeric" value="0"></input>
-            <button onclick="calculBonusMalus('plus')">+</button>
-            <button id="rollButton" style="width:80px; height:40px;" onclick="emitRoll()">Roll</button>
+        <div id="gameUI">
+            <div id="gameScene"></div>
+            <div id="gameMenu">
+                <div>
+                Choisir une scène<input type="file" id="imagefile" accept="image/*">
+                </div>
+                <div id="caracterButton">
+                    <input type="color" id="html5colorpicker" value="#ff0000"/>
+                    <button id="addPlayer">Afficher joueur</button>
+                </div>
+                <div id="addPNJs">
+                    <input type="text" id="pnjNameInput" value="PNJ 1"/>
+                    <input type="radio" name="selectForm" value="addPNJ">+</input>
+                    <input type="radio" name="selectForm" value="deletePNJ">-</input>
+                    <input type="radio" name="selectForm" value="movePlayer">Move</input>
+                </div>
+            </div>
         </div>
         
         <div id="tchat">            
+            <p id="pseudo"></p>
             <ul id="messages"></ul>
         </div>
         
-        <div id="userList">
-            
-        </div>
         
-        <div id="competences">
-            <div class="competencesTable">
-                <table>
-                    <caption>Caractéristiques principales</caption>
-
-                    <tbody>
-                        <tr id="Force" onchange='calculCompetences()' onclick="selectCompetenceSimple('Force');">
-                            <td>Force</td>
-                            <td></td>
-                        </tr>
-                        <tr id="Dexterite" onchange='calculCompetences()' onclick="selectCompetenceSimple('Dexterite');">
-                            <td>Dextérité</td>
-                            <td></td>
-                        </tr>
-                        <tr id="Constitution" onchange='calculCompetences()' onclick="selectCompetenceSimple('Constitution');">
-                            <td>Constitution</td>
-                            <td></td>
-                        </tr>
-                        <tr id="Charisme" onchange='calculCompetences()' onclick="selectCompetenceSimple('Charisme');">
-                            <td>Charisme</td>
-                            <td></td>
-                        </tr>
-                        <tr id="Perception" onchange='calculCompetences()' onclick="selectCompetenceSimple('Perception');">
-                            <td>Perception</td>
-                            <td></td>
-                        </tr>
-                        <tr id="Education" onchange='calculCompetences()' onclick="selectCompetenceSimple('Education');">
-                            <td>Education</td>
-                            <td></td>
-                        </tr>
-                        <tr id="Sagesse" onchange='calculCompetences()' onclick="selectCompetenceSimple('Sagesse');">
-                            <td>Sagesse</td>
-                            <td></td>
-                        </tr>
-                        <tr id="Intelligence" onchange='calculCompetences()' onclick="selectCompetenceSimple('Intelligence');">
-                            <td>Intelligence</td>
-                            <td></td>
-                        </tr>
-                    </tbody>
-                </table>
+        <div id="sideBar">
+            <div id="users">            
+                <ul id="userList"></ul>
             </div>
+        
+            <div id="test">
+            <div id="competences">
+                <div class="competencesTable">
+                    <table cellspacing="0" cellpadding="0">
+                        <caption>Caractéristiques principales</caption>
 
-            <div class="competencesTable">
-                <table>
-                    <caption>Compétences (au choix : 5)</caption>
+                        <tbody>
+                            <tr id="Force" onchange='calculCompetences()' onclick="selectCompetenceSimple('Force');">
+                                <td>Force</td>
+                                <td></td>
+                            </tr>
+                            <tr id="Dexterite" onchange='calculCompetences()' onclick="selectCompetenceSimple('Dexterite');">
+                                <td>Dextérité</td>
+                                <td></td>
+                            </tr>
+                            <tr id="Constitution" onchange='calculCompetences()' onclick="selectCompetenceSimple('Constitution');">
+                                <td>Constitution</td>
+                                <td></td>
+                            </tr>
+                            <tr id="Charisme" onchange='calculCompetences()' onclick="selectCompetenceSimple('Charisme');">
+                                <td>Charisme</td>
+                                <td></td>
+                            </tr>
+                            <tr id="Perception" onchange='calculCompetences()' onclick="selectCompetenceSimple('Perception');">
+                                <td>Perception</td>
+                                <td></td>
+                            </tr>
+                            <tr id="Education" onchange='calculCompetences()' onclick="selectCompetenceSimple('Education');">
+                                <td>Education</td>
+                                <td></td>
+                            </tr>
+                            <tr id="Sagesse" onchange='calculCompetences()' onclick="selectCompetenceSimple('Sagesse');">
+                                <td>Sagesse</td>
+                                <td></td>
+                            </tr>
+                            <tr id="Intelligence" onchange='calculCompetences()' onclick="selectCompetenceSimple('Intelligence');">
+                                <td>Intelligence</td>
+                                <td></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
 
-                    <tbody>
-                        <tr id="ArtDeLaMagie" onclick="selectCompetenceSimple('ArtDeLaMagie');">
-                            <td>Art de la magie</td>
-                            <td></td>
-                        </tr>
-                        <tr id="Connaissance" onclick="selectCompetenceSimple('Connaissance');">
-                            <td>Connaissance</td>
-                            <td></td>
-                        </tr>
-                        <tr id="Contrefacon" onclick="selectCompetenceSimple('Contrefacon');">
-                            <td>Contrefaçon</td>
-                            <td></td>
-                        </tr>
-                        <tr id="Crochetage" onclick="selectCompetenceSimple('Crochetage');">
-                            <td>Crochetage</td>
-                            <td></td>
-                        </tr>
-                        <tr id="Decryptage" onclick="selectCompetenceSimple('Decryptage');">
-                            <td>Decryptage</td>
-                            <td></td>
-                        </tr>
-                        <tr id="Desamorcage" onclick="selectCompetenceSimple('Desamorcage');">
-                            <td>Désamorçage</td>
-                            <td></td>
-                        </tr>
-                        <tr id="Dressage" onclick="selectCompetenceSimple('Dressage');">
-                            <td>Dressage</td>
-                            <td></td>
-                        </tr>
-                        <tr id="Equitation" onclick="selectCompetenceSimple('Equitation');">
-                            <td>Equitation</td>
-                            <td></td>
-                        </tr>
-                        <tr id="Escamotage" onclick="selectCompetenceSimple('Escamotage');">
-                            <td>Escamotage</td>
-                            <td></td>
-                        </tr>
-                        <tr id="MaitriseDesCordes" onclick="selectCompetenceSimple('MaitriseDesCordes');">
-                            <td>Maitrise des cordes</td>
-                            <td></td>
-                        </tr>
-                        <tr id="Natation" onclick="selectCompetenceSimple('Natation');">
-                            <td>Natation</td>
-                            <td></td>
-                        </tr>
-                        <tr id="PremierSecours" onclick="selectCompetenceSimple('PremierSecours');">
-                            <td>Premiers secours</td>
-                            <td></td>
-                        </tr>
-                        <tr id="Profession" onclick="selectCompetenceSimple('Profession');">
-                            <td>Profession</td>
-                            <td></td>
-                        </tr>
-                        <tr id="Representation" onclick="selectCompetenceSimple('Representation');">
-                            <td>Représentation</td>
-                            <td></td>
-                        </tr>
-                        <tr id="UtilisationObjetsMagiques" onclick="selectCompetenceSimple('UtilisationObjetsMagiques');">
-                            <td>Utilisation Obj. Mag.</td>
-                            <td></td>
-                        </tr>
+                <div class="competencesTable">
+                    <table cellspacing="0" cellpadding="0">
+                        <caption>Compétences (au choix : 5)</caption>
 
-                    </tbody>
-                </table>
+                        <tbody>
+                            <tr id="ArtDeLaMagie" onclick="selectCompetenceSimple('ArtDeLaMagie');">
+                                <td>Art de la magie</td>
+                                <td></td>
+                            </tr>
+                            <tr id="Connaissance" onclick="selectCompetenceSimple('Connaissance');">
+                                <td>Connaissance</td>
+                                <td></td>
+                            </tr>
+                            <tr id="Contrefacon" onclick="selectCompetenceSimple('Contrefacon');">
+                                <td>Contrefaçon</td>
+                                <td></td>
+                            </tr>
+                            <tr id="Crochetage" onclick="selectCompetenceSimple('Crochetage');">
+                                <td>Crochetage</td>
+                                <td></td>
+                            </tr>
+                            <tr id="Decryptage" onclick="selectCompetenceSimple('Decryptage');">
+                                <td>Decryptage</td>
+                                <td></td>
+                            </tr>
+                            <tr id="Desamorcage" onclick="selectCompetenceSimple('Desamorcage');">
+                                <td>Désamorçage</td>
+                                <td></td>
+                            </tr>
+                            <tr id="Dressage" onclick="selectCompetenceSimple('Dressage');">
+                                <td>Dressage</td>
+                                <td></td>
+                            </tr>
+                            <tr id="Equitation" onclick="selectCompetenceSimple('Equitation');">
+                                <td>Equitation</td>
+                                <td></td>
+                            </tr>
+                            <tr id="Escamotage" onclick="selectCompetenceSimple('Escamotage');">
+                                <td>Escamotage</td>
+                                <td></td>
+                            </tr>
+                            <tr id="MaitriseDesCordes" onclick="selectCompetenceSimple('MaitriseDesCordes');">
+                                <td>Maitrise des cordes</td>
+                                <td></td>
+                            </tr>
+                            <tr id="Natation" onclick="selectCompetenceSimple('Natation');">
+                                <td>Natation</td>
+                                <td></td>
+                            </tr>
+                            <tr id="PremierSecours" onclick="selectCompetenceSimple('PremierSecours');">
+                                <td>Premiers secours</td>
+                                <td></td>
+                            </tr>
+                            <tr id="Profession" onclick="selectCompetenceSimple('Profession');">
+                                <td>Profession</td>
+                                <td></td>
+                            </tr>
+                            <tr id="Representation" onclick="selectCompetenceSimple('Representation');">
+                                <td>Représentation</td>
+                                <td></td>
+                            </tr>
+                            <tr id="UtilisationObjetsMagiques" onclick="selectCompetenceSimple('UtilisationObjetsMagiques');">
+                                <td>Utilisation Obj. Mag.</td>
+                                <td></td>
+                            </tr>
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            </div>
+            <div id="bonusBox">
+                <button onclick="calculBonusMalus('moins')">-</button>
+                <input id="bonusMalus" type="numeric" value="0"></input>
+                <button onclick="calculBonusMalus('plus')">+</button>
+                <button id="rollButton" style="width:80px; height:40px;" onclick="emitRoll()">Roll</button>
             </div>
 
         </div>
-        <div style="display:inline-block;">
-            <div>
-                Choisir une scène<input type="file" id="imagefile" accept="image/*">
-                <div id="imageSend"></div>
-            </div>
-            <div id="gameForm">
-                <input type="color" id="html5colorpicker" value="#ff0000">
-                <button id="addPlayer">Afficher joueur</button>
-            </div>
-            <div id="gameScene"></div>
-        </div>
+
+        
     </div>
+    
 </body>
 
 </html>

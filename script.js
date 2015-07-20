@@ -144,7 +144,7 @@ function enterChannel(){
         $('#imageSend').empty();
         sceneData = data.fileData;
         if(gameScene) gameScene.destroy();
-        gameScene = new Phaser.Game(1024, 500, Phaser.AUTO, 'gameScene');
+        gameScene = new Phaser.Game(800, 600, Phaser.AUTO, 'gameScene');
         gameScene.state.add('sceneManager', sceneManager, true);
         //$('#imageSend').append($('<p>').append('<img src="' + data.fileData + '"/>'));
     });
@@ -156,7 +156,7 @@ function enterChannel(){
     // Lors de l'ajout d'un joueur sur la scène
     socketio.on("addPlayerOnScene", function(data) {
         // on envoie la requete d'ajout à la scène
-        addPlayerOnScene(data.pionId, data.color);
+        addPlayerOnScene(data.pionId, data.color, data.x, data.y);
     });
     
     // Lors du mouvement d'un des pions

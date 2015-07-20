@@ -14,17 +14,20 @@ var app = http.createServer(function (request, response) {
 var io = require('socket.io').listen(app);
  
 io.sockets.on('connection', function(socket) {
+    
     // Appelé lors d'un jet de dés, retourne le message affiché dans le tchat
     socket.on('roll', function(data) {
         var jet = roll(socket.stats[data.competence], data.competence, data.bonusMalus, socket.userName);
         io.sockets.in(socket.room).emit("roll",{ message: jet });
     });
+    
     // Appelé lors de la connexion d'un nouvel utilisateur
     socket.on('newUser', function(data) {
         console.log(data.userName+" joined "+data.room);
         
         socket.userName = data.userName;
         socket.room = data.room;
+        socket.pnjNumber = 0;
         console.log(data.stats);
         socket.stats = data.stats;
         if(!userList[data.room]){
@@ -36,10 +39,11 @@ io.sockets.on('connection', function(socket) {
         io.sockets.in(socket.room).emit("refreshUsers",{ userList: userList[socket.room] });
         
     });
+    
     // Appelé lors d'une déconnexion
     socket.on('disconnect', function(data) {
         console.log('disconnection');
- 
+        io.sockets.in(socket.room).emit("removePlayerOnScene", { pionId: socket.userName });
         if(userList[socket.room] && userList[socket.room].length > 0)
             userList[socket.room].splice(userList[socket.room].indexOf(socket.userName),1);
         io.sockets.in(socket.room).emit("refreshUsers",{ userList: userList[socket.room] });
@@ -51,14 +55,28 @@ io.sockets.on('connection', function(socket) {
         io.sockets.in(socket.room).emit('user image', { fileData: data });
         
     });
-    // Appelé lors d'un click sur un utilisateur pour voir ses stats
+    
+    // Appelé lors de l'ajout d'un joueur sur la scène
     socket.on('addPlayerOnScene', function(data) {
         io.sockets.in(socket.room).emit("addPlayerOnScene", { pionId: socket.userName, color : data.color });
     });
     
+    // Appelé lors de l'ajout d'un PNJ sur la scène
+    socket.on('addPNJOnScene', function(data) {
+        socket.pnjNumber++;
+        var pnjName = "";
+        if(data.pnjName == "") pnjName = socket.pnjNumber;
+        else pnjName = data.pnjName+" - "+socket.pnjNumber;
+        io.sockets.in(socket.room).emit("addPlayerOnScene", { pionId: pnjName, color : data.color, x : data.x, y : data.y });
+    });
+    
     // Appelé lors d'un remove du joueur de la map
     socket.on('removePlayerOnScene', function(data) {
-        io.sockets.in(socket.room).emit("removePlayerOnScene", { pionId: socket.userName });
+        if(data && data.pionId) {
+            io.sockets.in(socket.room).emit("removePlayerOnScene", { pionId: data.pionId });
+        } else {
+            io.sockets.in(socket.room).emit("removePlayerOnScene", { pionId: socket.userName });
+        }
     });
     
      // Appelé lorsdu mouvement d'un pion sur le plateau
