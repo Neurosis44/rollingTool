@@ -17,20 +17,28 @@
     
     <div id="accueil">
         
+        <div class="ribbon">
+                <div class="ribbon-stitches-top"></div><strong class="ribbon-content"><h1>Choose a nickname</h1></strong><div class="ribbon-stitches-bottom"></div>   
+            </div>
         <div class="accueilBox" id="identification">
-            <p style="color:white;">Entrez un pseudo</p>
             <input id="login" placeholder="Pseudo" value="Neurosis"></input></br>
         </div>
     
+        <div class="ribbon">
+                <div class="ribbon-stitches-top"></div><strong class="ribbon-content"><h1>Choose a room</h1></strong><div class="ribbon-stitches-bottom"></div>   
+            </div>
         <div class="accueilBox" id="identification">
-            <p style="color:white;">Entrez un salon</p>
             <input id="salon" placeholder="Salon" value="NeurosisRoom"></input></br>
         </div>
 
 
+        <div class="ribbon">
+                <div class="ribbon-stitches-top"></div><strong class="ribbon-content"><h1>Player role</h1></strong><div class="ribbon-stitches-bottom"></div>   
+            </div>
         <div class="accueilBox" id="stats">
             <input name="role" type="radio" value="joueur" onclick="playerChoice('joueur')" checked="checked">Joueur</input>
             <input name="role" type="radio" value="mj" onclick="playerChoice('mj')">Maître de jeu</input>
+            <div id="separateur" style="margin-top:5px;border: 1px dashed rgba(0, 0, 0, 0.5)"></div>
             <table id="tableStats">
                 <tbody>
                     <tr id="ForceInit">
@@ -75,23 +83,25 @@
     <div id="content">
         
         
-        <div id="gameUI">
+        <div id="gameUI" >
             <div id="gameScene"></div>
-            <div id="gameMenu">
-                <div>
-                Choisir une scène<input type="file" id="imagefile" accept="image/*">
+            <div class="ribbon"><div class="ribbon-stitches-top"></div>
+                <div id="gameMenu" class="ribbon-content">
+                    <div>
+                    Choisir une scène<input type="file" id="imagefile" accept="image/*">
+                    </div>
+                    <div id="caracterButton">
+                        <input type="color" id="html5colorpicker" value="#ff0000"/>
+                        <button id="addPlayer">Afficher joueur</button>
+                    </div>
+                    <div id="addPNJs">
+                        <input type="text" id="pnjNameInput" value="PNJ 1"/>
+                        <input type="radio" name="selectForm" value="addPNJ">+</input>
+                        <input type="radio" name="selectForm" value="deletePNJ">-</input>
+                        <input type="radio" name="selectForm" value="movePlayer">Move</input>
+                    </div>
                 </div>
-                <div id="caracterButton">
-                    <input type="color" id="html5colorpicker" value="#ff0000"/>
-                    <button id="addPlayer">Afficher joueur</button>
-                </div>
-                <div id="addPNJs">
-                    <input type="text" id="pnjNameInput" value="PNJ 1"/>
-                    <input type="radio" name="selectForm" value="addPNJ">+</input>
-                    <input type="radio" name="selectForm" value="deletePNJ">-</input>
-                    <input type="radio" name="selectForm" value="movePlayer">Move</input>
-                </div>
-            </div>
+            <div class="ribbon-stitches-bottom"></div></div>
         </div>
         
         <div id="tchat">            
@@ -101,10 +111,17 @@
         
         
         <div id="sideBar">
+            <div class="ribbon"><div class="ribbon-stitches-top">
+                </div><strong class="ribbon-content"><h1>ServerName</h1></strong><div class="ribbon-stitches-bottom"></div>    
+            </div>
+            
             <div id="users">            
                 <ul id="userList"></ul>
             </div>
         
+            <div class="ribbon">
+                <div class="ribbon-stitches-top"></div><strong class="ribbon-content"><h1>Comp</h1></strong><div class="ribbon-stitches-bottom"></div>   
+            </div>
             <div id="test">
             <div id="competences">
                 <div class="competencesTable">
@@ -219,11 +236,15 @@
                 </div>
             </div>
             </div>
-            <div id="bonusBox">
-                <button onclick="calculBonusMalus('moins')">-</button>
-                <input id="bonusMalus" type="numeric" value="0"></input>
-                <button onclick="calculBonusMalus('plus')">+</button>
-                <button id="rollButton" style="width:80px; height:40px;" onclick="emitRoll()">Roll</button>
+            
+            <div id="rollBox">
+                <div class="ribbon"><div class="ribbon-stitches-top"></div><strong class="ribbon-content"><h1>Roll</h1></strong><div class="ribbon-stitches-bottom"></div>    </div>
+                <div id="bonusLabel">Bonus </br>
+                    <button onclick="calculBonusMalus('moins')">-</button>
+                    <input id="bonusMalus" type="numeric" value="0"></input>
+                    <button onclick="calculBonusMalus('plus')">+</button>
+                </div>
+                <button id="rollButton"  onclick="emitRoll()">Roll</button>
             </div>
 
         </div>

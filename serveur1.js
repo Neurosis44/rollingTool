@@ -23,7 +23,7 @@ io.sockets.on('connection', function(socket) {
     
     // Appelé lors de la connexion d'un nouvel utilisateur
     socket.on('newUser', function(data) {
-        console.log(data.userName+" joined "+data.room);
+        console.log(data.userName+" joined "+data.room+" ("+data.role+")");
         
         socket.userName = data.userName;
         socket.room = data.room;

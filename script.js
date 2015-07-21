@@ -44,10 +44,13 @@ function selectCompetenceSimple(compId){
 };
 
 function playerChoice(choice){
-    if(choice == "mj")
+    if(choice == "mj"){
         document.getElementById('tableStats').style.display = "none";
-    else 
+        document.getElementById('separateur').style.display = "none";
+    } else {
         document.getElementById('tableStats').style.display = "block";
+        document.getElementById('separateur').style.display = "block";
+    }
 };
 
 function calculCompetences(stats){
@@ -181,13 +184,14 @@ function enterChannel(){
 
     userName = $('#login').val();
     room = $('#salon').val();
+    role = $('input[name=role]:checked').val();
     calculCompetences(playerStats);
 
     document.getElementById('pseudo').innerText = document.getElementById('login').value;
     document.getElementById('accueil').style.display = "none";
     document.getElementById('content').style.display = "block";
     
-    socketio.emit("newUser", { userName : userName, room : room, stats : playerStats});
+    socketio.emit("newUser", { userName : userName, room : room, stats : playerStats, role : role});
 
 }
 
