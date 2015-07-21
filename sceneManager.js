@@ -17,12 +17,15 @@ sceneManager.prototype.create = function() {
     //Position image fond accueil
     var imageFond = gameScene.cache.getImage('fond');
     
-    //var x = Math.round((gameScene.width / 2) - (imageFond.width / 2));
-    //var y = Math.round((gameScene.height / 2) - (imageFond.height / 2));
+    if(imageFond.width < 800) var x = Math.round((gameScene.width - imageFond.width) / 2);
+    else var x = 0;
+
+    if(imageFond.height < 600)  var y = Math.round((gameScene.height - imageFond.height) / 2);
+    else var y = 0;
     
     gameScene.playersGroup = gameScene.add.group();
     
-    var fond = gameScene.add.sprite(0, 0, 'fond');
+    var fond = gameScene.add.sprite(x, y, 'fond');
     
     // Gestion de la camera
     gameScene.world.setBounds(0, 0, imageFond.width, imageFond.height);
