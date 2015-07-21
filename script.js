@@ -27,14 +27,15 @@ function selectCompetenceSimple(compId){
     var compValue = document.getElementById(compId).getElementsByTagName('td')[1].innerText;
 
     selectedCompetence = compId;
+    
+    // On écrase les selections précedentes
+    $('.competencesTable tr').css('background-color', 'rgba(000,000,000,0)');
 
-    var lines = document.getElementById('competences').getElementsByTagName('tr');
-    for(var i = 0; i < lines.length; i++){
-        lines[i].style.backgroundColor = "#7a5435";
-    }
     // On remplace le hover car il est écrasé par le reinit du de la couleur de fon 
-    document.getElementById(compId).style.background = "blue";
-    var css='table td:hover{background-color:#00ff00}';
+    $('#'+compId).css('background-color', 'rgba(000,000,000,0.2)');
+    
+    // On applique le hover ( pas trouvé de moyen plus propre ici sans faire péter les hover/selected)
+    var css='table td:hover{background-color:rgba(000,000,000,0.2)}';
     style=document.createElement('style');
     if (style.styleSheet)
         style.styleSheet.cssText=css;
@@ -191,6 +192,7 @@ function enterChannel(){
     document.getElementById('pseudo').innerText = document.getElementById('login').value;
     document.getElementById('accueil').style.display = "none";
     document.getElementById('content').style.display = "block";
+    $('#serverLabel').text(room);
     
     socketio.emit("newUser", { userName : userName, room : room, stats : playerStats, role : role});
 
@@ -221,5 +223,10 @@ $("document").ready(function(){
             socketio.emit('removePlayerOnScene');
         }
         
+    });
+    
+    // Lors d'un click sur le bouton "Ajouter Joueur"
+    $('caption').click(function(){
+        $(this).next("tbody").toggle();
     });
 });

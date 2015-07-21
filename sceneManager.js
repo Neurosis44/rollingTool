@@ -43,20 +43,21 @@ sceneManager.prototype.update = function() {
     // Deplacement de la camera
     if (cursors.up.isDown)
     {
-        gameScene.camera.y -= 5;
+        gameScene.camera.y -= 10;
+        
     }
     else if (cursors.down.isDown)
     {
-        gameScene.camera.y += 5;
+        gameScene.camera.y += 10;
     }
 
     if (cursors.left.isDown)
     {
-        gameScene.camera.x -= 5;
+        gameScene.camera.x -= 10;
     }
     else if (cursors.right.isDown)
     {
-        gameScene.camera.x += 5;
+        gameScene.camera.x += 10;
     }
     
     // Gestion des clicks de la souris
@@ -81,19 +82,13 @@ sceneManager.prototype.playCallback = function(btn) {
 // Ajoute un pion a la scène
 function addPlayerOnScene(playerName, color, x, y){
     var graphics = gameScene.add.graphics(20, 20);
-    /*graphics.beginFill(color.replace('#','0x'));
-    graphics.drawCircle(470, 20, 20);
-    graphics.beginFill('0x000000');
-    graphics.drawCircle(470, 20, 20);
-    graphics.endFill();
-    graphics.visible = false;*/
     
     // and finally add the third 1px wide unfilled blue circle with a radius of 150
     graphics.drawCircle(0, 0, 20);
     graphics.beginFill(color.replace('#','0x'));
     
     // add first 1px wide unfilled red circle with a radius of 50 at the center (0, 0) of the graphics object
-    graphics.lineStyle(4, '0x000000');
+    graphics.lineStyle(3, '0x000000');
     graphics.drawCircle(0, 0, 20);
     graphics.endFill();
     graphics.visible = false;

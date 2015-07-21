@@ -85,8 +85,8 @@
         
         <div id="gameUI" >
             <div id="gameScene"></div>
-            <div class="ribbon"><div class="ribbon-stitches-top"></div>
-                <div id="gameMenu" class="ribbon-content">
+            <div id="gameMenu" class="ribbon">
+                <div class="ribbon-content">
                     <div>
                     Choisir une scène<input type="file" id="imagefile" accept="image/*">
                     </div>
@@ -101,59 +101,62 @@
                         <input type="radio" name="selectForm" value="movePlayer">Move</input>
                     </div>
                 </div>
-            <div class="ribbon-stitches-bottom"></div></div>
+            </div>
         </div>
         
         <div id="tchat">            
-            <p id="pseudo"></p>
             <ul id="messages"></ul>
         </div>
         
         
         <div id="sideBar">
             <div class="ribbon"><div class="ribbon-stitches-top">
-                </div><strong class="ribbon-content"><h1>ServerName</h1></strong><div class="ribbon-stitches-bottom"></div>    
+                </div><strong class="ribbon-content"><h1 id="serverLabel">ServerName</h1></strong><div class="ribbon-stitches-bottom"></div>    
             </div>
             
             <div id="users">            
                 <ul id="userList"></ul>
             </div>
         
-            <div class="ribbon">
-                <div class="ribbon-stitches-top"></div><strong class="ribbon-content"><h1>Comp</h1></strong><div class="ribbon-stitches-bottom"></div>   
+            <div class="ribbon test">
+                <div class="ribbon-stitches-top"></div><strong class="ribbon-content"><h1 id="pseudo"></h1></strong><div class="ribbon-stitches-bottom"></div>   
             </div>
             <div id="test">
             <div id="competences">
                 <div class="competencesTable">
                     <table cellspacing="0" cellpadding="0">
-                        <caption>Caractéristiques principales</caption>
-
+                        
+                        <caption><div class="ribbon">
+                            <div class="ribbon-stitches-top"></div>
+                            <strong class="ribbon-content">Caractéristiques</strong>
+                            <div class="ribbon-stitches-bottom"></div>   
+                        </div></caption>
                         <tbody>
-                            <tr id="Force" onchange='calculCompetences()' onclick="selectCompetenceSimple('Force');">
+                            <tr id="Force" onclick="selectCompetenceSimple('Force');">
                                 <td>Force</td>
                                 <td></td>
                             </tr>
-                            <tr id="Dexterite" onchange='calculCompetences()' onclick="selectCompetenceSimple('Dexterite');">
+                            <tr id="Dexterite" onclick="selectCompetenceSimple('Dexterite');">
                                 <td>Dextérité</td>
                                 <td></td>
                             </tr>
-                            <tr id="Constitution" onchange='calculCompetences()' onclick="selectCompetenceSimple('Constitution');">
+                            <tr id="Constitution" onclick="selectCompetenceSimple('Constitution');">
                                 <td>Constitution</td>
                                 <td></td>
                             </tr>
-                            <tr id="Charisme" onchange='calculCompetences()' onclick="selectCompetenceSimple('Charisme');">
+                            <tr id="Charisme" onclick="selectCompetenceSimple('Charisme');">
                                 <td>Charisme</td>
                                 <td></td>
                             </tr>
-                            <tr id="Perception" onchange='calculCompetences()' onclick="selectCompetenceSimple('Perception');">
+                            <tr id="Perception" onclick="selectCompetenceSimple('Perception');">
                                 <td>Perception</td>
                                 <td></td>
                             </tr>
-                            <tr id="Education" onchange='calculCompetences()' onclick="selectCompetenceSimple('Education');">
+                            <tr id="Education" onclick="selectCompetenceSimple('Education');">
                                 <td>Education</td>
                                 <td></td>
                             </tr>
-                            <tr id="Sagesse" onchange='calculCompetences()' onclick="selectCompetenceSimple('Sagesse');">
+                            <tr id="Sagesse" onclick="selectCompetenceSimple('Sagesse');">
                                 <td>Sagesse</td>
                                 <td></td>
                             </tr>
@@ -167,7 +170,11 @@
 
                 <div class="competencesTable">
                     <table cellspacing="0" cellpadding="0">
-                        <caption>Compétences (au choix : 5)</caption>
+                         <caption><div class="ribbon">
+                            <div class="ribbon-stitches-top"></div>
+                            <strong class="ribbon-content">Compétences</strong>
+                            <div class="ribbon-stitches-bottom"></div>   
+                        </div></caption>
 
                         <tbody>
                             <tr id="ArtDeLaMagie" onclick="selectCompetenceSimple('ArtDeLaMagie');">

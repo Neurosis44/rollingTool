@@ -63,7 +63,6 @@ io.sockets.on('connection', function(socket) {
     
     // Appelé lors d'une déconnexion
     socket.on('disconnect', function(data) {
-        console.log('disconnection');
         io.sockets.in(socket.room).emit("removePlayerOnScene", { pionId: socket.userName });
         if(userList[socket.room] && userList[socket.room].length > 0)
             userList[socket.room].splice(userList[socket.room].indexOf(socket.userName),1);
@@ -71,10 +70,8 @@ io.sockets.on('connection', function(socket) {
     });
     
      // Appelé lors d'une déconnexion
-    socket.on('user image', function(data) {
-        console.log("image sended.")        
+    socket.on('user image', function(data) {      
         io.sockets.in(socket.room).emit('user image', { fileData: data });
-        
     });
     
     // Appelé lors de l'ajout d'un joueur sur la scène
@@ -110,7 +107,6 @@ io.sockets.on('connection', function(socket) {
 
 // Traitement du jet de dés, calcul du message à émettre aux tchats
 function roll(compValue, comp, bonusMalus, pseudo){
-    console.log('compValue :'+compValue)
     var rand = Math.floor(Math.random() * 100) + 1;
     var totalValue = parseInt(compValue) + parseInt(bonusMalus);
     
