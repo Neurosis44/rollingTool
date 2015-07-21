@@ -132,7 +132,8 @@ function enterChannel(){
         console.log(data.userList);
         $('#userList').empty();
         for(var i=0;i < data.userList.length;i++){                          
-            $('#userList').append('<li>'+data.userList[i]+'</li>');   
+            if(data.userList[i].role == "mj") $('#userList').append('<li>'+data.userList[i].userName+' (GM)</li>'); 
+            else $('#userList').append('<li>'+data.userList[i].userName+'</li>'); 
         }
         // lorsque l'on clique sur un des pseudos, on récupère les stats et on les mets à jour
         $('#userList').find('li').each(function(){

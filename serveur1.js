@@ -29,11 +29,32 @@ io.sockets.on('connection', function(socket) {
         socket.room = data.room;
         socket.pnjNumber = 0;
         console.log(data.stats);
+        
+        // On conserve les stats initiales
         socket.stats = data.stats;
+        // Calcul des competences annexes
+        socket.stats['Crochetage'] = data.stats['Dexterite'];
+        socket.stats['Natation'] = data.stats['Force'];
+        socket.stats['ArtDeLaMagie'] = Math.floor((parseInt(data.stats['Sagesse'])+parseInt(data.stats['Intelligence']))/2);
+        socket.stats['Connaissance'] = data.stats['Education'];
+        socket.stats['Contrefacon'] = Math.floor((parseInt(data.stats['Education'])+parseInt(data.stats['Intelligence']))/2);
+        socket.stats['Decryptage'] = Math.floor((parseInt(data.stats['Education'])+parseInt(data.stats['Intelligence']))/2);
+        socket.stats['Desamorcage'] = Math.floor((parseInt(data.stats['Sagesse'])+parseInt(data.stats['Intelligence']))/2);
+        socket.stats['Dressage'] = data.stats['Charisme'];
+        socket.stats['Equitation'] = Math.floor((parseInt(data.stats['Force'])+parseInt(data.stats['Dexterite']))/2);
+        socket.stats['Escamotage'] = Math.floor((parseInt(data.stats['Dexterite'])+parseInt(data.stats['Perception']))/2);
+        socket.stats['MaitriseDesCordes'] = Math.floor((parseInt(data.stats['Dexterite'])+parseInt(data.stats['Education']))/2);
+        socket.stats['PremierSecours'] = Math.floor((parseInt(data.stats['Sagesse'])+parseInt(data.stats['Education']))/2);
+        socket.stats['Profession'] = data.stats['Sagesse'];
+        socket.stats['Representation'] = Math.floor((parseInt(data.stats['Charisme'])+parseInt(data.stats['Education']))/2);
+        socket.stats['UtilisationObjetsMagiques'] = Math.floor((parseInt(data.stats['Intelligence'])+parseInt(data.stats['Education']))/2);
+        
+        console.log(Math.floor((parseInt(data.stats['Charisme'])+parseInt(data.stats['Education']))/2));
+        
         if(!userList[data.room]){
             userList[data.room] = [];
         } 
-        userList[socket.room].push(data.userName);
+        userList[socket.room].push({userName: data.userName, role : data.role});
         
         socket.join(socket.room);
         io.sockets.in(socket.room).emit("refreshUsers",{ userList: userList[socket.room] });
