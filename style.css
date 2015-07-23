@@ -17,31 +17,43 @@ body {
 #messages li {
     padding: 5px 10px;
 }
-#messages li:nth-child(odd) {
+/*#messages li:nth-child(odd) {
     background: #eee;
-}
+}*/
 #content {
-    ;
     margin: 0 auto;
     text-align: left;
     display: none;
 }
 #tchat {
     float: right;
+    margin-top: 30px;
     width: 300px;
-    height: 580px;
-    background: #eee;
-    color: black;
-    overflow: auto;
+    height: 400px;
     right: 200px;
     position: absolute;
     display: inline-block;
-    margin:10px;
-    border-image-slice: 64 75 224 78; 
+    background-image:url("assets/img/tchatBackground.png");
+    background-size: 100% 100%;
+    
+    /*border-image-slice: 64 75 224 78; 
     border-image-width: 9px 12px 38px 12px; 
     border-image-outset: 10px 7px 35px 10px; 
     border-image-repeat: repeat repeat; 
-    border-image-source: url(assets/img/LayerHSCadreCamera.png);
+    border-image-source: url(assets/img/LayerHSCadreCamera.png);*/
+}
+#tchatContentWrapper {
+    width: 300px;
+    overflow: hidden;
+}
+#tchatContent {
+    padding-left:10px;
+    padding-bottom:5px;
+    width: 320px;
+    height: 365px;
+    color: black;
+    padding-right: 15px;
+    overflow: auto;
 }
 table {
     width: 98%;
@@ -202,8 +214,45 @@ td input {
 }
 #gameMenu {
     height: 100px;
-     border-top: 2px dashed rgba(0, 0, 0, 0.2);
+    border-top: 2px dashed rgba(0, 0, 0, 0.2);
     
+}
+.gameUiBlock {
+    margin-right:5px;
+    float:left;
+    width:130px;
+    height:100%;
+    display:inline-block;
+    border-left: 1px dashed rgba(0, 0, 0, 0.5);
+    border-right: 1px dashed rgba(0, 0, 0, 0.5);
+}
+.gameUiBlock input[type=text] {
+    width:120px;
+}
+
+.fileWrapper {
+    width: 70px;
+    height: 70px;
+    background:blue;
+    position:relative;
+    /*background: url('file_browse_normal.png') 0 0 no-repeat;*/
+    border: 1px dashed rgba(0, 0, 0, 0.5);
+    overflow:hidden;
+}
+#imagefile {
+    position: absolute;
+    top: 0;
+    right: 0;
+    min-width: 100%;
+    min-height: 100%;
+    font-size: 100px;
+    text-align: right;
+    filter: alpha(opacity=0);
+    opacity: 0;
+    outline: none;
+    background: white;
+    cursor: inherit;
+    display: block;
 }
 
 #enter {
@@ -376,4 +425,69 @@ td input {
    text-shadow: #ffffff 0 1px 0;
    margin:0px;
    padding: 5px 5px;
+}
+
+.buttonGUI {
+   border: 1px solid #ffffff;
+    margin-top: 5px;
+   background: #4a3c25;
+    width:40px;
+    height:40px;
+    display: inline-block;
+   background: -webkit-gradient(linear, left top, left bottom, from(#916b41), to(#4a3c25));
+   background: -webkit-linear-gradient(top, #916b41, #4a3c25);
+   background: -moz-linear-gradient(top, #916b41, #4a3c25);
+   background: -ms-linear-gradient(top, #916b41, #4a3c25);
+   background: -o-linear-gradient(top, #916b41, #4a3c25);
+   background-image: -ms-linear-gradient(top, #916b41 0%, #4a3c25 100%);
+   -webkit-border-radius: 4px;
+   -moz-border-radius: 4px;
+   border-radius: 4px;
+   -webkit-box-shadow: rgba(255,255,255,0.4) 0 1px 0, inset rgba(255,255,255,0.4) 0 1px 0;
+   -moz-box-shadow: rgba(255,255,255,0.4) 0 1px 0, inset rgba(255,255,255,0.4) 0 1px 0;
+   box-shadow: rgba(255,255,255,0.4) 0 1px 0, inset rgba(255,255,255,0.4) 0 1px 0;
+   text-shadow: #c6cacc 0 1px 0;
+   color: #ffffff;
+   font-size: 12px;
+   font-family: helvetica, serif;
+   text-decoration: none;
+   vertical-align: middle;
+   }
+.buttonGUI:hover {
+   border: 2px solid #ffffff;
+   text-shadow: #b4b8ba 0 1px 0;
+   background: #bcc0c2;
+   background: -webkit-gradient(linear, left top, left bottom, from(#75787a), to(#bcc0c2));
+   background: -webkit-linear-gradient(top, #75787a, #bcc0c2);
+   background: -moz-linear-gradient(top, #75787a, #bcc0c2);
+   background: -ms-linear-gradient(top, #75787a, #bcc0c2);
+   background: -o-linear-gradient(top, #75787a, #bcc0c2);
+   background-image: -ms-linear-gradient(top, #75787a 0%, #bcc0c2 100%);
+   color: #fff;
+   }
+.buttonGUI:active {
+   text-shadow: #1e4158 0 1px 0;
+   border: 2px solid #ffffff;
+   background: #65a9d7;
+   background: -webkit-gradient(linear, left top, left bottom, from(#3e779d), to(#bcc0c2));
+   background: -webkit-linear-gradient(top, #3e779d, #65a9d7);
+   background: -moz-linear-gradient(top, #3e779d, #65a9d7);
+   background: -ms-linear-gradient(top, #3e779d, #65a9d7);
+   background: -o-linear-gradient(top, #3e779d, #65a9d7);
+   background-image: -ms-linear-gradient(top, #3e779d 0%, #65a9d7 100%);
+   color: #fff;
+   }
+
+.buttonInputForm {
+    position: absolute;
+     width:40px;
+    height:40px;
+    font-size: 100px;
+    text-align: right;
+    filter: alpha(opacity=0);
+    opacity: 0;
+    outline: none;
+    background: white;
+    cursor: inherit;
+    display: block;
 }

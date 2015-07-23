@@ -125,7 +125,7 @@ function enterChannel(){
         node.innerHTML = data.message;
         //node.appendChild(textnode);
         document.getElementById('messages').appendChild(node);
-        document.getElementById('tchat').scrollTop = document.getElementById('tchat').scrollHeight;
+        document.getElementById('tchatContent').scrollTop = document.getElementById('tchatContent').scrollHeight;
     });
 
     socketio.on("refreshUsers", function(data) {

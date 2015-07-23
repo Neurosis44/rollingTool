@@ -85,27 +85,45 @@
         
         <div id="gameUI" >
             <div id="gameScene"></div>
-            <div id="gameMenu" class="ribbon">
-                <div class="ribbon-content">
-                    <div>
-                    Choisir une scène<input type="file" id="imagefile" accept="image/*">
+            <div id="gameMenu" class="ribbon ribbon-content">
+                    <div class="gameUiBlock">
+                         <div class="ribbon"><div class="ribbon-stitches-top"></div>
+                            <div class="ribbon-content">Scène</div>
+                             <div class="ribbon-stitches-bottom"></div> </div>
+                        
+                        <Div class="fileWrapper buttonGUI">Choisir une scène<input type="file" id="imagefile" accept="image/*"></Div>
                     </div>
-                    <div id="caracterButton">
-                        <input type="color" id="html5colorpicker" value="#ff0000"/>
-                        <button id="addPlayer">Afficher joueur</button>
+                    <div id="caracterButton"  class="gameUiBlock">
+                        <div class="ribbon"><div class="ribbon-stitches-top"></div>
+                            <div class="ribbon-content ribbon">Joueur</div>
+                            <div class="ribbon-stitches-bottom"></div>  </div> 
+                        
+                        <input type="color" id="html5colorpicker" class="buttonGUI" value="#ff0000"/>
+                        <button id="addPlayer" class="buttonGUI">Afficher joueur</button>
+                        <div class="buttonGUI"><input type="radio" name="selectForm" value="movePlayer" class="buttonInputForm" >Move</input></div>
                     </div>
-                    <div id="addPNJs">
+                    <div id="addPNJs" class="gameUiBlock">
+                        <div class="ribbon"><div class="ribbon-stitches-top"></div>
+                            <div class="ribbon-content ribbon">PNJs</div>
+                            <div class="ribbon-stitches-bottom"></div> </div>
+                        
                         <input type="text" id="pnjNameInput" value="PNJ 1"/>
-                        <input type="radio" name="selectForm" value="addPNJ">+</input>
-                        <input type="radio" name="selectForm" value="deletePNJ">-</input>
-                        <input type="radio" name="selectForm" value="movePlayer">Move</input>
+                        <div class="buttonGUI"><input type="radio" name="selectForm" value="addPNJ" class="buttonInputForm">+</input></div>
+                        <div class="buttonGUI"><input type="radio" name="selectForm" value="deletePNJ" class="buttonInputForm">-</input></div>
+                        <div class="buttonGUI"><input type="radio" name="selectForm" value="movePlayer" class="buttonInputForm">Move</input></div>
                     </div>
-                </div>
             </div>
         </div>
         
-        <div id="tchat">            
-            <ul id="messages"></ul>
+        <div id="tchat">
+            <div class="ribbon"><div class="ribbon-stitches-top"></div>
+                     <div class="ribbon-content" style="height:30px;text-align:center;"><h1>Tchat</h1></div>
+                <div class="ribbon-stitches-bottom"></div> </div>
+            <div id="tchatContentWrapper">
+                <div id="tchatContent"> 
+                    <ul id="messages"></ul>
+                </div>
+            </div>
         </div>
         
         
