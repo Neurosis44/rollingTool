@@ -52,7 +52,7 @@ body {
     width: 320px;
     height: 365px;
     color: black;
-    padding-right: 15px;
+    padding-right: 22px;
     overflow: auto;
 }
 table {
@@ -61,10 +61,10 @@ table {
 table caption {
     font-size: 14px;
 }
-tr td {
+/*tr td {
     text-align: left;
-    width: 30px;
-}
+    width: 50px;
+}*/
 td input {
     width: 40px;
 }
@@ -93,25 +93,28 @@ td input {
     height: 100%;
     border-left: 1px dashed rgba(0, 0, 0, 0.5);
     background: #824e3c;
-    background: -webkit-gradient(linear, left top, left bottom, from(#824e3c), to(#5e3629));
+    /*background: -webkit-gradient(linear, left top, left bottom, from(#824e3c), to(#5e3629));
     background: -webkit-linear-gradient(top, #824e3c, #5e3629);
     background: -moz-linear-gradient(top, #824e3c, #5e3629);
     background: -ms-linear-gradient(top, #824e3c, #5e3629);
     background: -o-linear-gradient(top, #824e3c, #5e3629);
-    background-image: -ms-linear-gradient(top, #824e3c 0%, #5e3629 100%);
+    background-image: -ms-linear-gradient(top, #824e3c 0%, #5e3629 100%);*/
     -webkit-box-shadow: rgba(000, 000, 000, 0.3) 0 0px 0px;
     -moz-box-shadow: rgba(000, 000, 000, 0.3) 0 0px 0px;
     box-shadow: rgba(000, 000, 000, 0.3) 0 0px 0px;
     font-family: 'Helvetica Neue', Helvetica, sans-serif;
+}
+.brownBackground {
+    color:white;
+    background: #824e3c;
 }
 #test {
     width: 180px;
     overflow: hidden;
 }
 #competences {
-    height: 100%;
+    height: 530px;
     width: 200px;
-    padding-right: 15px;
     overflow: auto;
 }
 #competences tr:hover {
@@ -134,6 +137,11 @@ td input {
     -moz-box-shadow: rgba(000, 000, 000, 0.3) 0 0px 0px;
     box-shadow: rgba(000, 000, 000, 0.3) 0 0px 0px;
     font-family: 'Helvetica Neue', Helvetica, sans-serif;
+}
+#rollingSprite {
+    height: 48px;
+    width: 36px;
+    background-image: url("assets/img/diceSprite2.png");
 }
 #stats {
     border-bottom: 1px dashed rgba(0, 0, 0, 0.5);
@@ -173,8 +181,12 @@ td input {
     font-size: 14px;
 }
 #competences table tr td:nth-child(1){
-    padding-left: 5px;
-    width: 90%;
+    padding-left: 10px;
+    width: 80%;
+}
+#competences table tr td:nth-child(2){
+    padding-left:5px;
+    text-align: center;
 }
 
 #users {
@@ -196,25 +208,45 @@ td input {
     padding-left: 10px;
     list-style-type: none;
 }
+#users li {
+    margin-top:2px;
+}
+#users li:hover {
+    background-color: rgba(0, 0, 0, 0.2);
+}
+
 #gameUI {
-    width: 800px;
+    width: 820px;
     display: inline-block;
     margin:30px;
-    
-    border-image-slice: 64 75 224 78; 
+    background-image:url("assets/img/gamePanel.png");
+    background-size: 100% 100% ;
+    background-repeat: no-repeat;
+    /*border-image-slice: 64 75 224 78; 
     border-image-width: 9px 12px 38px 12px; 
     border-image-outset: 8px 10px 37px 10px; 
     border-image-repeat: repeat repeat; 
-    border-image-source: url(assets/img/LayerHSCadreCamera.png);
+    border-image-source: url(assets/img/LayerHSCadreCamera.png);*/
 }
 #gameScene {
+    margin:auto;
+    margin-top:15px;
+    /*margin-bottom:15px;*/
     width: 794px;
     height: 600px;
     background: green;
 }
 #gameMenu {
     height: 100px;
-    border-top: 2px dashed rgba(0, 0, 0, 0.2);
+    background-image:url("assets/img/menuBackground.png");
+    background-size: 100% 100% ;
+    background-repeat: no-repeat;
+    /*border-top: 2px dashed rgba(0, 0, 0, 0.2);*/
+    margin:5px;
+    padding-top:5px;
+    padding-bottom:5px;
+    text-align:center;
+    
     
 }
 .gameUiBlock {
@@ -228,6 +260,7 @@ td input {
 }
 .gameUiBlock input[type=text] {
     width:120px;
+    margin:auto;
 }
 
 .fileWrapper {
@@ -287,6 +320,10 @@ td input {
     text-decoration: none;
 }
 
+#rollBox {
+    text-align: center;
+    height:130px;
+}
 #rollBox input {
     width: 40px;
     text-align: center;
@@ -346,21 +383,19 @@ td input {
     color: #fff;
 }
 #rollButton {
-    width: 80px!important;
+    width: 120px!important;
     height: 40px!important;
-    margin-top: 5px;
-    margin-bottom: 5px;
+    text-align: center;
 }
 #bonusLabel {
     text-align: center;
     padding-top: 2px;
     padding-bottom: 5px;
-    border-bottom: 1px dashed rgba(0, 0, 0, 0.2);
 }
 .ribbon {
     /*width: 180px;*/
     /*position: absolute;*/
-    
+    color: #ffffff;
     text-align: center;
     /*background: #824e3c;
     background: -webkit-gradient(linear, left top, left bottom, from(#824e3c), to(#5e3629));
@@ -426,19 +461,24 @@ td input {
    margin:0px;
    padding: 5px 5px;
 }
+.ribbon-other strong {
+   color: #422e2e;
+   text-shadow: #ffffff 0 1px 0;
+
+}
 
 .buttonGUI {
-   border: 1px solid #ffffff;
+    border: 1px solid #ffffff;
     margin-top: 5px;
-   background: #4a3c25;
+    background: #4a3c25;
     width:40px;
     height:40px;
     display: inline-block;
-   background: -webkit-gradient(linear, left top, left bottom, from(#916b41), to(#4a3c25));
-   background: -webkit-linear-gradient(top, #916b41, #4a3c25);
-   background: -moz-linear-gradient(top, #916b41, #4a3c25);
-   background: -ms-linear-gradient(top, #916b41, #4a3c25);
-   background: -o-linear-gradient(top, #916b41, #4a3c25);
+    background: -webkit-gradient(linear, left top, left bottom, from(#916b41), to(#4a3c25));
+    background: -webkit-linear-gradient(top, #916b41, #4a3c25);
+    background: -moz-linear-gradient(top, #916b41, #4a3c25);
+    background: -ms-linear-gradient(top, #916b41, #4a3c25);
+    background: -o-linear-gradient(top, #916b41, #4a3c25);
    background-image: -ms-linear-gradient(top, #916b41 0%, #4a3c25 100%);
    -webkit-border-radius: 4px;
    -moz-border-radius: 4px;
@@ -490,4 +530,102 @@ td input {
     background: white;
     cursor: inherit;
     display: block;
+}
+
+/* ---------------------------------------------*/
+/*                       HUD HP                 */
+/* ---------------------------------------------*/
+#hud {
+    float: right;
+    width: 300px;
+    height: 300px;
+    right: 200px;
+    top:450px;
+    /*background-color:blue;*/
+    position: absolute;
+    /*display: inline-block;*/
+}
+.bars {
+  width: 200px;;
+  height: 40px;
+margin-top:10px;
+  margin-right:10px;
+  border: 1px dashed rgba(253, 253, 253, 0);
+  /*background-color: rgba(235, 235, 235, 0.8);*/
+  background-image:url("assets/img/caracPanel.png");
+  background-size: 100% 100% ;
+    background-repeat: no-repeat;
+-moz-box-shadow: 3px 3px 10px 0px #000000;
+-webkit-box-shadow: 3px 3px 10px 0px #000000;
+-o-box-shadow: 3px 3px 10px 0px #000000;
+box-shadow: 3px 3px 10px 0px #000000;
+    -webkit-animation-duration: 0.5s; 
+    animation-duration: 0.5s; 
+    -webkit-animation-fill-mode: both; 
+    animation-fill-mode: both; 
+    -webkit-animation-timing-function: ease-out; 
+    animation-timing-function: ease-out; 
+}
+
+@-webkit-keyframes fadeInLeft { 
+    0% { 
+        opacity: 0; 
+        -webkit-transform: translateX(+50px); 
+    } 
+    100% { 
+        opacity: 1; 
+        -webkit-transform: translateX(0); 
+    } 
+} 
+@keyframes fadeInLeft { 
+    0% { 
+        opacity: 0; 
+        transform: translateX(+50px); 
+    } 
+    100% { 
+        opacity: 1; 
+        transform: translateX(0); 
+    } 
+} 
+.fadeInLeft { 
+    -webkit-animation-name: fadeInLeft; 
+    animation-name: fadeInLeft; 
+}
+
+.bars .bar {
+  width: 180px;
+  height: 10px;
+  border: 0px solid #000;
+  margin-left: 4px;
+  margin-top: 20px;
+  /*background-color: rgba(26, 23, 23, 0.4);*/
+  opacity:50%;
+  font-size: 12px;
+  padding-left:5px;
+  font-family: arial;
+  position: relative;
+    color:white;
+}
+
+ .bars .bar #pseudoHUD {
+  font-size: 13px;
+  /*padding-right:10px;*/
+}
+
+.bars .bar .hud-text {
+  position: absolute;
+  top: -15px;
+}
+
+.bars .bar .health {
+  width: 100%;
+  height: 100%;
+  background-color: #dc1414;
+}
+      
+
+.testPanel {
+    background-image:url("assets/img/caracPanel.png");
+  background-size: 100% 100% ;
+    background-repeat: no-repeat;
 }

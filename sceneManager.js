@@ -83,7 +83,7 @@ sceneManager.prototype.playCallback = function(btn) {
 }
 
 // Ajoute un pion a la scène
-function addPlayerOnScene(playerName, color, x, y){
+function addPlayerOnScene(playerName, color, x, y, type){
     var graphics = gameScene.add.graphics(20, 20);
     
     // and finally add the third 1px wide unfilled blue circle with a radius of 150
@@ -109,11 +109,13 @@ function addPlayerOnScene(playerName, color, x, y){
     sprite.playerName = playerName;
     
     // permet de supprimer le pion lors d'un click
-    sprite.events.onInputDown.add(function(sprite){
-        if($('input[name=selectForm]:checked').val() == "deletePNJ"){
-            socketio.emit('removePlayerOnScene', { pionId : playerName});
-        }
-    }, this);
+    if(type=="pnj"){
+        sprite.events.onInputDown.add(function(sprite){
+            if($('input[name=selectForm]:checked').val() == "deletePNJ"){
+                socketio.emit('removePlayerOnScene', { pionId : playerName});
+            }
+        }, this);
+    }
     
     // Ajout du text sous le pion
     var style = { font: "15px Arial", fill: color,fontWeight : 'bold', align: "center" };

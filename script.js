@@ -18,7 +18,8 @@ function emitRoll(){
     }
 
     var bonusMalus = parseInt($('#bonusMalus').val());
-
+    
+    //$("#rollingSprite").animateSprite('restart');
     socketio.emit("roll", { competence: comp, bonusMalus : bonusMalus });
 }
 
@@ -98,6 +99,26 @@ function calculCompetences(stats){
         $('#Profession :nth-child(2)').text(SagesseValue);
         $('#Representation :nth-child(2)').text(Math.floor((CharismeValue+EducationValue)/2));
         $('#UtilisationObjetsMagiques :nth-child(2)').text(Math.floor((IntelligenceValue+EducationValue)/2));
+        
+        $('#Acrobaties :nth-child(2)').text( Math.floor((ForceValue+DexteriteValue)/2));
+        $('#Bluff :nth-child(2)').text(Math.floor((CharismeValue+IntelligenceValue)/2));
+        $('#Concentration :nth-child(2)').text(ConstitutionValue);
+        $('#Deguisement :nth-child(2)').text(Math.floor((CharismeValue+IntelligenceValue)/2));
+        $('#DeplacementSilencieux :nth-child(2)').text(DexteriteValue);
+        $('#Detection :nth-child(2)').text(PerceptionValue);
+        $('#Diplomatie :nth-child(2)').text(CharismeValue);
+        $('#Discretion :nth-child(2)').text(DexteriteValue);//
+        $('#Equilibre :nth-child(2)').text(DexteriteValue);
+        $('#Escalade :nth-child(2)').text(Math.floor((ForceValue+DexteriteValue)/2));
+        $('#Estimation :nth-child(2)').text(Math.floor((IntelligenceValue+PerceptionValue)/2));
+        $('#Evasion :nth-child(2)').text(Math.floor((SagesseValue+DexteriteValue)/2));
+        $('#Fouille :nth-child(2)').text(Math.floor((SagesseValue+PerceptionValue)/2));
+        $('#Intimidation :nth-child(2)').text(Math.floor((CharismeValue+ForceValue)/2));
+        $('#PerceptionAuditive :nth-child(2)').text(Math.floor((SagesseValue+PerceptionValue)/2));
+        $('#Psychologie :nth-child(2)').text(Math.floor((PerceptionValue+EducationValue)/2));
+        $('#Renseignements :nth-child(2)').text(Math.floor((PerceptionValue+EducationValue)/2));
+        $('#Saut :nth-child(2)').text(Math.floor((ForceValue+DexteriteValue)/2));
+        $('#Survie :nth-child(2)').text(Math.floor((SagesseValue+ConstitutionValue)/2));
 
     }
 }
@@ -118,8 +139,8 @@ function enterChannel(){
        console.log(data);
     });
 
+    // appelé lors du jet de dé d'un joueur
     socketio.on("roll", function(data) {
-       //document.getElementById('messages').append($('<li>').text(data.message));
         var node = document.createElement("LI");             
         //var textnode = document.createTextNode(data.message);      
         node.innerHTML = data.message;
@@ -128,45 +149,90 @@ function enterChannel(){
         document.getElementById('tchatContent').scrollTop = document.getElementById('tchatContent').scrollHeight;
     });
 
+    // appelé lors d'un connection/deconnexion d'un joueur sur le salon
     socketio.on("refreshUsers", function(data) {
-       //document.getElementById('messages').append($('<li>').text(data.message));
         console.log(data.userList);
+        // on refresh la liste des utilisateurs sur le serveur en haut à droite
         $('#userList').empty();
         for(var i=0;i < data.userList.length;i++){                          
-            if(data.userList[i].role == "mj") $('#userList').append('<li>'+data.userList[i].userName+' (GM)</li>'); 
+            if(data.userList[i].role == "mj") $('#userList').append('<li">'+data.userList[i].userName+' (GM)</li>'); 
             else $('#userList').append('<li>'+data.userList[i].userName+'</li>'); 
+        }
+        // on vide les HUD
+        $('#hud').empty();
+        // On ajoute les joueurs
+        for(var i=0;i < data.userList.length;i++){                          
+            if(data.userList[i].role != "mj") {
+                $('#hud').append('<div class="bars fadeInLeft"><div class="bar trigger"><div class="hud-text"><strong id="pseudoHUD">'+data.userList[i].userName+'</strong> <strong>10</strong> / <strong>20</strong> HP</div><div class="health"></div></div></div>');
+            }
         }
         // lorsque l'on clique sur un des pseudos, on récupère les stats et on les mets à jour
         $('#userList').find('li').each(function(){
             $(this).click(function(){
-                socketio.emit("getPlayerStats", { pseudo: $(this).text()});
+                socketio.emit("getPlayerStats", { userName: $(this).text()});
             })
         });
         
     });
 
     socketio.on("user image", function(data) {
-        $('#imageSend').empty();
+        //$('#imageSend').empty();
         sceneData = data.fileData;
         if(gameScene) gameScene.destroy();
-        gameScene = new Phaser.Game(800, 600, Phaser.AUTO, 'gameScene');
+        gameScene = new Phaser.Game(794, 600, Phaser.AUTO, 'gameScene');
         gameScene.state.add('sceneManager', sceneManager, true);
         //$('#imageSend').append($('<p>').append('<img src="' + data.fileData + '"/>'));
     });
     
+     // Lors de la suppression d'un pion sur la map
+    socketio.on("getGameImage", function(data) {
+        //removePlayerOnScene(data.pionId);
+        console.log("DATA \n"+data.fileData);
+        if(data.fileData){
+            //$('#imageSend').empty();
+            sceneData = data.fileData;
+            if(gameScene) gameScene.destroy();
+            gameScene = new Phaser.Game(794, 600, Phaser.AUTO, 'gameScene');
+            gameScene.state.add('sceneManager', sceneManager, true);
+        }
+    });
+    
     socketio.on("getPlayerStats", function(data) {
+        
+        // change le style de la feuille de stats
+        document.getElementById('pseudo').innerText = data.userName;
+        if(data.userName != userName){
+            // si c'est la feuille d'un autre perso, on affiche en blanc
+            $('#competences').removeClass('brownBackground');
+            $('#competences').css('background-color', '#e6e7e7');
+            $('#competences').css('color', 'black');
+            $('#pseudoWrapper').attr('class', 'ribbon-other');
+            $('#captionRibbonComp').attr('class', 'ribbon-other');
+            $('#captionRibbonCaracCommunes').attr('class', 'ribbon-other');
+            $('#captionRibbonCarac').attr('class', 'ribbon-other');
+        } else {
+            // sinon on remet en marron (initiale)
+            $('#competences').css('background-color', '#824e3c');
+            $('#competences').css('color', 'white');
+            $('#pseudoWrapper').attr('class', 'ribbon');
+            $('#captionRibbonComp').attr('class', 'ribbon');
+            $('#captionRibbonCarac').attr('class', 'ribbon');
+            $('#captionRibbonCaracCommunes').attr('class', 'ribbon');
+        }
+        
+        // modifie les valeurs des stats
         calculCompetences(data.stats);
     });
     
     // Lors de l'ajout d'un joueur sur la scène
     socketio.on("addPlayerOnScene", function(data) {
         // on envoie la requete d'ajout à la scène
-        addPlayerOnScene(data.pionId, data.color, data.x, data.y);
+        addPlayerOnScene(data.pionId, data.color, data.x, data.y, data.type);
     });
     
     // Lors du mouvement d'un des pions
     socketio.on("updatePlayerPosition", function(data) {
-        updatePlayerPosition(data.pionId, data.x, data.y);
+        updatePlayerPosition(data.pionId, data.x, data.y, data.type);
     });
     
     
@@ -194,7 +260,10 @@ function enterChannel(){
     document.getElementById('content').style.display = "block";
     $('#serverLabel').text(room);
     
+    // On indique qu'on entre dans le salon avec les différentes infos
     socketio.emit("newUser", { userName : userName, room : room, stats : playerStats, role : role});
+    // On essaie de recuperer le fond s'il y en a un 
+    socketio.emit("getGameImage");
 
 }
 
@@ -228,5 +297,25 @@ $("document").ready(function(){
     // Lors d'un click sur le bouton "Ajouter Joueur"
     $('caption').click(function(){
         $(this).next("tbody").toggle();
+        //if ($("#competences").offsetHeight < $("#competences").scrollHeight) {
+        //console.log('dépassement de '+ $("#competences").outerHeight());
+        if ( document.getElementById('competences').offsetHeight < document.getElementById('competences').scrollHeight) {
+            // your element have overflow
+            $("#competences").css('padding-right','0px');
+        } else {
+            $("#competences").css('padding-right','17px');
+        }
     });
+    
+    /*$("#rollingSprite").animateSprite({
+        fps: 20,
+        animations: {
+            rolling: [2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50,51,52,53,54,55,56,57,58,59,60]
+        },
+        loop: false,
+        complete: function(){
+            // use complete only when you set animations with 'loop: false'
+        }
+    });
+    $("#rollingSprite").animateSprite('stop');*/
 });
